@@ -12,9 +12,7 @@ export const usePokemonSearch = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `${pokeApi}${String(query).toLowerCase()}`,
-      );
+      const res = await fetch(`${pokeApi}${String(query).toLowerCase()}`);
       if (!res.ok) throw new Error("Pokémon not found");
       const data = await res.json();
       setPokemonData([data]);
@@ -31,6 +29,5 @@ export const usePokemonSearch = () => {
     loading,
     error,
     pokemonData,
-    clearData: setPokemonData,
   };
 };
