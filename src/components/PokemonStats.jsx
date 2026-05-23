@@ -12,12 +12,11 @@ const PokemonStats = ({ pokemon }) => (
           <span className="w-12 text-gray-800 font-bold text-right pr-4">
             {s.base_stat}
           </span>
-          <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className={`h-full rounded-full ${s.base_stat >= 50 ? "bg-green-400" : "bg-red-400"}`}
-              style={{ width: `${Math.min(100, (s.base_stat / 150) * 100)}%` }}
-            />
-          </div>
+          <progress
+            className={`flex-1 h-3 rounded-full ${s.base_stat >= 50 ? "accent-green-500" : "accent-red-500"}`}
+            value={s.base_stat}
+            max="150"
+          />
         </div>
       ))}
     </div>

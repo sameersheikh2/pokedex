@@ -43,7 +43,11 @@ const PokemonDescription = ({ pokemon }) => (
           <span
             className={`text-gray-800 font-semibold ${capitalize ? "capitalize" : ""}`}
           >
-            {value}
+            {label === "Height"
+              ? `${value / 10} m`
+              : label === "Weight"
+                ? `${value / 10} kg`
+                : value}
           </span>
         </div>
       ))}
