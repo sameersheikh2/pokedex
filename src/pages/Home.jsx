@@ -1,4 +1,5 @@
 import Search from "../components/Search";
+import RandomPokemon from "../components/RandomPokemon";
 
 const Home = () => (
   <div className="min-h-screen bg-[#f8f9fa] font-sans">
@@ -11,6 +12,7 @@ const Home = () => (
           Discover, search, and learn about your favorite Pokémon in one place.
         </p>
         <Search />
+        <RandomPokemon />
       </div>
     </header>
   </div>

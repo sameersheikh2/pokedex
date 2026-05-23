@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { usePokemonSearch } from "../hooks/usePokemonSearch";
 import SearchResults from "../components/SearchResults";
+import Search from "../components/Search";
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
@@ -28,6 +29,10 @@ const SearchResultsPage = () => {
           >
             Back to Home
           </button>
+        </div>
+        
+        <div className="mb-8">
+          <Search />
         </div>
 
         {loading && (
