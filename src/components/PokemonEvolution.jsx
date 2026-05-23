@@ -43,7 +43,7 @@ const PokemonEvolution = ({ chain }) => {
             {index > 0 && <ArrowIcon />}
             <div 
               className="flex flex-col items-center cursor-pointer group"
-              onClick={() => navigate(`/search?q=${stage.name.toLowerCase()}`)}
+              onClick={() => navigate(`/search?q=${stage.name.toLowerCase()}`, { state: { fromEvolution: true } })}
             >
               <div className="bg-gray-50 p-4 rounded-full border border-gray-100 mb-3 group-hover:border-blue-300 group-hover:shadow-md transition-all">
                 <img

@@ -45,8 +45,8 @@ const Details = () => {
     );
   if (!pokemon)
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-400 text-xl">
-        Loading...
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="pokeball"></div>
       </div>
     );
 

@@ -24,8 +24,8 @@ const RandomPokemon = () => {
 
   if (loading) {
     return (
-      <div className="max-w-2xl mx-auto mt-4 p-4 text-red-50 font-medium">
-        Loading Pokémon of the Day...
+      <div className="max-w-2xl mx-auto mt-4 p-4 flex justify-center items-center">
+        <div className="pokeball"></div>
       </div>
     );
   }

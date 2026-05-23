@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { usePokemonSearch } from "../hooks/usePokemonSearch";
 import SearchResults from "../components/SearchResults";
 import Search from "../components/Search";
@@ -8,13 +8,22 @@ const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const navigate = useNavigate();
+  const location = useLocation();
   const { searchPokemon, loading, error, pokemonData } = usePokemonSearch();
+
+  const isFromEvolution = location.state?.fromEvolution;
 
   useEffect(() => {
     if (query) {
       searchPokemon(query);
     }
   }, [query]);
+
+  useEffect(() => {
+    if (isFromEvolution && !loading && !error && pokemonData.length > 0) {
+      navigate(`/details/${pokemonData[0].id}`, { replace: true });
+    }
+  }, [isFromEvolution, loading, error, pokemonData, navigate]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 font-sans">
@@ -36,8 +45,8 @@ const SearchResultsPage = () => {
         </div>
 
         {loading && (
-          <div className="text-gray-500 text-xl text-center py-20 font-medium">
-            Loading...
+          <div className="flex justify-center items-center py-20">
+            <div className="pokeball"></div>
           </div>
         )}
 
