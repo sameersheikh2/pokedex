@@ -2,10 +2,11 @@
 
 Pokédex Explorer is a clean, fast, and minimal web app that lets you search for any Pokémon and dive into their details. Whether you're looking for specific stats, abilities, or just want to see the complete evolution chain of your favorites, this app has it neatly organized. It also features a daily random "Pokémon of the Day" on the homepage if you're just looking to discover something new!
 
-![Homepage](/homepage.png)
-![Details Page](/deatilpage.png)
+![Homepage](/public/homepage.png)
+![Details Page](/public/deatilpage.png)
 
 ## Features
+
 - **Instant Search:** Find any Pokémon by name or ID.
 - **Deep Details:** View high-res official artwork, physical traits, stats, and abilities.
 - **Evolution Chains:** Visually track the complete evolution path.
@@ -14,16 +15,19 @@ Pokédex Explorer is a clean, fast, and minimal web app that lets you search for
 ## How to run locally
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start the development server:
+
 ```bash
 npm run dev
 ```
 
 3. Build for production:
+
 ```bash
 npm run build
 ```
