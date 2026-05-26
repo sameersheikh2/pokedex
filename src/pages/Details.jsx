@@ -5,12 +5,19 @@ import PokemonImage from "../components/PokemonImage";
 import PokemonDescription from "../components/PokemonDescription";
 import PokemonStats from "../components/PokemonStats";
 import PokemonEvolution from "../components/PokemonEvolution";
+import PokemonAbout from "../components/PokemonAbout";
+import PokemonBreeding from "../components/PokemonBreeding";
+import PokemonMoves from "../components/PokemonMoves";
+import PokemonHeldItems from "../components/PokemonHeldItems";
+import { tabs } from "../constants/utils";
 
 const Details = () => {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState(null);
   const [evolution, setEvolution] = useState(null);
+  const [species, setSpecies] = useState(null);
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("about");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +31,7 @@ const Details = () => {
         const speciesRes = await fetch(`${pokemonDetailApi}${id}`);
         if (!speciesRes.ok) throw new Error("Species data not found");
         const speciesData = await speciesRes.json();
+        setSpecies(speciesData);
 
         const evoRes = await fetch(speciesData.evolution_chain.url);
         if (!evoRes.ok) throw new Error("Evolution data not found");
@@ -63,6 +71,31 @@ const Details = () => {
           <PokemonImage pokemon={pokemon} />
           <PokemonDescription pokemon={pokemon} />
         </div>
+        {species && (
+          <div className="mt-16">
+            <div className="flex flex-wrap gap-2 border-b pb-4 mb-6">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+                    activeTab === tab.key
+                      ? "bg-slate-800 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            {activeTab === "about" && (
+              <PokemonAbout pokemon={pokemon} species={species} />
+            )}
+            {activeTab === "breeding" && <PokemonBreeding species={species} />}
+            {activeTab === "moves" && <PokemonMoves pokemon={pokemon} />}
+            {activeTab === "items" && <PokemonHeldItems pokemon={pokemon} />}
+          </div>
+        )}
         <div className="mt-16 flex flex-col md:flex-row gap-12">
           <PokemonStats pokemon={pokemon} />
           {evolution && <PokemonEvolution chain={evolution} />}

@@ -1,23 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { usePokemonSearch } from "../hooks/usePokemonSearch";
+import { useFuzzySearch } from "../hooks/useFuzzySearch";
 import SearchResults from "../components/SearchResults";
 import Search from "../components/Search";
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const exact = searchParams.get("exact");
   const navigate = useNavigate();
   const location = useLocation();
   const { searchPokemon, loading, error, pokemonData } = usePokemonSearch();
+  const { suggest } = useFuzzySearch();
+  const [correctedTo, setCorrectedTo] = useState(null);
 
   const isFromEvolution = location.state?.fromEvolution;
 
   useEffect(() => {
-    if (query) {
-      searchPokemon(query);
+    setCorrectedTo(null);
+    if (query) searchPokemon(query);
+  }, [query, exact]);
+
+  useEffect(() => {
+    if (error && query && !exact) {
+      const match = suggest(query);
+      if (match) {
+        setCorrectedTo(match);
+        searchPokemon(match);
+      }
     }
-  }, [query]);
+  }, [error]);
 
   useEffect(() => {
     if (isFromEvolution && !loading && !error && pokemonData.length > 0) {
@@ -39,10 +52,23 @@ const SearchResultsPage = () => {
             Back to Home
           </button>
         </div>
-        
+
         <div className="mb-8">
           <Search />
         </div>
+
+        {correctedTo && !loading && !error && pokemonData.length > 0 && (
+          <div className="text-sm text-gray-600 mb-6">
+            Showing results for{" "}
+            <span className="font-semibold text-gray-900">{correctedTo}</span>.{" "}
+            <button
+              onClick={() => navigate(`/search?q=${query}&exact=1`)}
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Search instead for "{query}"
+            </button>
+          </div>
+        )}
 
         {loading && (
           <div className="flex justify-center items-center py-20">
