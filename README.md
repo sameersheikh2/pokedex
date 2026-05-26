@@ -4,11 +4,16 @@ Pokédex Explorer is a clean, fast, and minimal web app that lets you search for
 
 ![Homepage](/public/homepage.png)
 ![Details Page](/public/deatilpage.png)
+![SearchResult](/public/search-result.png)
 
 ## Features
 
 - **Instant Search:** Find any Pokémon by name or ID.
+- **Fuzzy Search:** Handles typos with "Did you mean?" suggestions powered by Fuse.js.
 - **Deep Details:** View high-res official artwork, physical traits, stats, and abilities.
+- **Tabbed Detail View:** Explore About, Breeding, Moves, and Held Items tabs for each Pokémon.
+- **Breeding Info:** Gender ratios, egg groups, capture rate, happiness, and growth rate.
+- **Moves & Held Items:** Browse the full move pool and wild-held items.
 - **Evolution Chains:** Visually track the complete evolution path.
 - **Pokémon of the Day:** Discover a randomly generated Pokémon every day.
 
